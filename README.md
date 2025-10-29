@@ -1,88 +1,88 @@
 # nan-grams
 いろんな素材の大さじ、小さじが何グラムかを表示するアプリ
 
-A static ingredient reference that shows the gram equivalents of Japanese tablespoons (大さじ) and teaspoons (小さじ).
+日本の料理でよく使われる調味料や材料について、大さじ（15ml）・小さじ（5ml）のグラム数を表示する静的サイトです。
 
-## Features
+## 機能
 
-- 📊 Instant conversion from tablespoons/teaspoons to grams
-- 🏷️ Tagged ingredients (liquid, powder, seasoning, etc.)
-- 📱 Responsive design with Tailwind CSS
-- 🚀 Built with Astro for fast static site generation
+- 📊 大さじ・小さじからグラムへの即時変換
+- 🏷️ 素材のタグ付け（液体、粉末、調味料など）
+- 📱 Tailwind CSSによるレスポンシブデザイン
+- 🚀 Astroによる高速な静的サイト生成
 
-## Local Setup
+## ローカル環境のセットアップ
 
-### Prerequisites
+### 必要な環境
 
-- Node.js (version 18 or higher)
+- Node.js（バージョン18以上）
 - npm
 
-### Installation
+### インストール
 
 ```bash
-# Clone the repository
+# リポジトリをクローン
 git clone https://github.com/dzeyelid/nan-grams.git
 cd nan-grams
 
-# Install dependencies
+# 依存関係をインストール
 npm install
 ```
 
-### Development
+### 開発
 
 ```bash
-# Start the development server
+# 開発サーバーを起動
 npm run dev
-# The site will be available at http://localhost:4321/ (or another port if 4321 is in use)
+# http://localhost:4321/ でサイトが利用可能になります（ポート4321が使用中の場合は別のポートになります）
 
-# Build for production
+# 本番用にビルド
 npm run build
 
-# Preview the production build
+# 本番ビルドをプレビュー
 npm run preview
 ```
 
-## Project Structure
+## プロジェクト構成
 
 ```
 /
-├── public/           # Static assets (favicon, etc.)
+├── public/           # 静的アセット（faviconなど）
 ├── src/
-│   ├── data/        # Ingredient seed data
-│   ├── layouts/     # Astro layouts
-│   ├── lib/         # Utility functions
-│   ├── pages/       # Astro pages
-│   └── types/       # TypeScript type definitions
-├── astro.config.mjs # Astro configuration
-├── tailwind.config.mjs # Tailwind CSS configuration
+│   ├── data/        # 素材データ
+│   ├── layouts/     # Astroレイアウト
+│   ├── lib/         # ユーティリティ関数
+│   ├── pages/       # Astroページ
+│   └── types/       # TypeScript型定義
+├── astro.config.mjs # Astro設定
+├── tailwind.config.mjs # Tailwind CSS設定
 └── package.json
 ```
 
-## Available Scripts
+## 利用可能なスクリプト
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production (includes type checking)
-- `npm run preview` - Preview the production build locally
-- `npm run astro` - Run Astro CLI commands
+- `npm run dev` - 開発サーバーを起動
+- `npm run build` - 本番用にビルド（型チェックを含む）
+- `npm run preview` - 本番ビルドをローカルでプレビュー
+- `npm run astro` - Astro CLIコマンドを実行
 
-## Future Plans
+## 今後の予定
 
-See [docs/plan.md](docs/plan.md) for the complete project roadmap, including:
+完全なプロジェクトロードマップは [docs/plan.md](docs/plan.md) をご覧ください：
 
-- Community ingredient submissions
-- Like and report functionality  
-- Azure Functions + Cosmos DB integration
-- Azure OpenAI moderation
-- GitHub Actions deployment pipelines
+- コミュニティによる素材投稿機能
+- いいね・報告機能
+- Azure Functions + Cosmos DB統合
+- Azure OpenAIによるモデレーション
+- GitHub Actionsデプロイメントパイプライン
 
-## Tech Stack
+## 技術スタック
 
-- **Framework**: [Astro](https://astro.build/) v5
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Language**: TypeScript (strict mode)
-- **Deployment**: GitHub Pages (planned)
+- **フレームワーク**: [Astro](https://astro.build/) v5
+- **スタイリング**: [Tailwind CSS](https://tailwindcss.com/)
+- **言語**: TypeScript（strictモード）
+- **デプロイ**: GitHub Pages（予定）
 
-## License
+## ライセンス
 
-See [LICENSE](LICENSE) file.
+[LICENSE](LICENSE) ファイルをご覧ください。
 
