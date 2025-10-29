@@ -94,7 +94,7 @@ const ingredients = getAllIngredients();
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             {ingredients.map((ingredient) => (
-              <tr class="hover:bg-gray-50">
+              <tr class="hover:bg-gray-50 cursor-pointer" data-ingredient-id={ingredient.id}>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                   {ingredient.name}
                 </td>
@@ -131,15 +131,13 @@ const ingredients = getAllIngredients();
   const teaspoonGrams = document.getElementById('teaspoon-grams');
   const ingredientNotes = document.getElementById('ingredient-notes');
 
-  select?.addEventListener('change', (e) => {
-    const selectedId = e.target.value;
-    
-    if (!selectedId) {
+  function displayIngredient(ingredientId) {
+    if (!ingredientId) {
       resultSection?.classList.add('hidden');
       return;
     }
 
-    const ingredient = ingredientsData.find((ing) => ing.id === selectedId);
+    const ingredient = ingredientsData.find((ing) => ing.id === ingredientId);
     
     if (ingredient) {
       if (ingredientName) ingredientName.textContent = ingredient.name;
@@ -156,5 +154,21 @@ const ingredients = getAllIngredients();
       resultSection?.classList.remove('hidden');
       resultSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
+  }
+
+  select?.addEventListener('change', (e) => {
+    displayIngredient(e.target.value);
+  });
+
+  // Add click handlers to table rows
+  const tableRows = document.querySelectorAll('tbody tr[data-ingredient-id]');
+  tableRows.forEach((row) => {
+    row.addEventListener('click', () => {
+      const ingredientId = row.getAttribute('data-ingredient-id');
+      if (ingredientId && select) {
+        select.value = ingredientId;
+        displayIngredient(ingredientId);
+      }
+    });
   });
 </script>
