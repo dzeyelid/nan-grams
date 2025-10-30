@@ -22,7 +22,7 @@
 ```bash
 # リポジトリをクローン
 git clone https://github.com/dzeyelid/nan-grams.git
-cd nan-grams
+cd nan-grams/app
 
 # 依存関係をインストール
 npm install
@@ -31,6 +31,9 @@ npm install
 ### 開発
 
 ```bash
+# appディレクトリに移動
+cd app
+
 # 開発サーバーを起動
 npm run dev
 # http://localhost:4321/ でサイトが利用可能になります（ポート4321が使用中の場合は別のポートになります）
@@ -46,19 +49,25 @@ npm run preview
 
 ```
 /
-├── public/           # 静的アセット（faviconなど）
-├── src/
-│   ├── data/        # 素材データ
-│   ├── layouts/     # Astroレイアウト
-│   ├── lib/         # ユーティリティ関数
-│   ├── pages/       # Astroページ
-│   └── types/       # TypeScript型定義
-├── astro.config.mjs # Astro設定
-├── tailwind.config.mjs # Tailwind CSS設定
-└── package.json
+├── app/              # Astroアプリケーション
+│   ├── public/       # 静的アセット（faviconなど）
+│   ├── src/
+│   │   ├── data/    # 素材データ
+│   │   ├── layouts/ # Astroレイアウト
+│   │   ├── lib/     # ユーティリティ関数
+│   │   ├── pages/   # Astroページ
+│   │   └── types/   # TypeScript型定義
+│   ├── astro.config.mjs     # Astro設定
+│   ├── tailwind.config.mjs  # Tailwind CSS設定
+│   └── package.json
+├── data/             # 日本食品標準成分表データ
+├── scripts/          # データ抽出スクリプト
+└── references/       # 参照データ（CSVファイル等）
 ```
 
 ## 利用可能なスクリプト
+
+アプリケーションディレクトリ（`app/`）内で実行：
 
 - `npm run dev` - 開発サーバーを起動
 - `npm run build` - 本番用にビルド（型チェックを含む）
