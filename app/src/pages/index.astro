@@ -1,0 +1,174 @@
+---
+import Base from '../layouts/Base.astro';
+import { getAllIngredients } from '../lib/useIngredients';
+
+const ingredients = getAllIngredients();
+---
+
+<Base title="nan-grams | 大さじ・小さじ グラム変換表">
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">素材を選択</h2>
+      <p class="text-gray-600 mb-6">
+        素材を選ぶと、大さじ・小さじのグラム数が表示されます。
+      </p>
+      
+      <div class="mb-6">
+        <label for="ingredient-select" class="block text-sm font-medium text-gray-700 mb-2">
+          素材
+        </label>
+        <select 
+          id="ingredient-select"
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+        >
+          <option value="">-- 素材を選択してください --</option>
+          {ingredients.map((ingredient) => (
+            <option value={ingredient.id}>{ingredient.name}</option>
+          ))}
+        </select>
+      </div>
+
+      <div id="result-section" class="hidden">
+        <div class="bg-indigo-50 rounded-lg p-6">
+          <h3 class="text-xl font-semibold text-indigo-900 mb-4" id="ingredient-name"></h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-white rounded-lg p-4 shadow">
+              <div class="text-sm text-gray-600 mb-1">大さじ 1杯</div>
+              <div class="text-3xl font-bold text-indigo-600">
+                <span id="tablespoon-grams">0</span><span class="text-xl ml-1">g</span>
+              </div>
+            </div>
+            
+            <div class="bg-white rounded-lg p-4 shadow">
+              <div class="text-sm text-gray-600 mb-1">小さじ 1杯</div>
+              <div class="text-3xl font-bold text-indigo-600">
+                <span id="teaspoon-grams">0</span><span class="text-xl ml-1">g</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="ingredient-notes" class="text-sm text-gray-600 italic hidden"></div>
+
+          <div class="hidden flex gap-2 mt-6">
+            <button 
+              id="like-btn"
+              disabled
+              class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-md cursor-not-allowed"
+              title="機能準備中"
+            >
+              👍 いいね (準備中)
+            </button>
+            <button 
+              id="report-btn"
+              disabled
+              class="flex-1 bg-gray-300 text-gray-500 px-4 py-2 rounded-md cursor-not-allowed"
+              title="機能準備中"
+            >
+              🚩 報告 (準備中)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">全ての素材</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                素材
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                大さじ 1杯
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                小さじ 1杯
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                タグ
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            {ingredients.map((ingredient) => (
+              <tr class="hover:bg-gray-50 cursor-pointer" data-ingredient-id={ingredient.id}>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {ingredient.name}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  {ingredient.gramPerTablespoon}g
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  {ingredient.gramPerTeaspoon}g
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-500">
+                  <div class="flex flex-wrap gap-1">
+                    {ingredient.tags.map((tag) => (
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<script is:inline define:vars={{ ingredients: JSON.stringify(ingredients) }}>
+  const ingredientsData = JSON.parse(ingredients);
+  const select = document.getElementById('ingredient-select');
+  const resultSection = document.getElementById('result-section');
+  const ingredientName = document.getElementById('ingredient-name');
+  const tablespoonGrams = document.getElementById('tablespoon-grams');
+  const teaspoonGrams = document.getElementById('teaspoon-grams');
+  const ingredientNotes = document.getElementById('ingredient-notes');
+
+  function displayIngredient(ingredientId) {
+    if (!ingredientId) {
+      resultSection?.classList.add('hidden');
+      return;
+    }
+
+    const ingredient = ingredientsData.find((ing) => ing.id === ingredientId);
+    
+    if (ingredient) {
+      if (ingredientName) ingredientName.textContent = ingredient.name;
+      if (tablespoonGrams) tablespoonGrams.textContent = ingredient.gramPerTablespoon.toString();
+      if (teaspoonGrams) teaspoonGrams.textContent = ingredient.gramPerTeaspoon.toString();
+      
+      if (ingredient.notes && ingredientNotes) {
+        ingredientNotes.textContent = ingredient.notes;
+        ingredientNotes.classList.remove('hidden');
+      } else if (ingredientNotes) {
+        ingredientNotes.classList.add('hidden');
+      }
+      
+      resultSection?.classList.remove('hidden');
+      resultSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  select?.addEventListener('change', (e) => {
+    displayIngredient(e.target.value);
+  });
+
+  // Add click handlers to table rows
+  const tableRows = document.querySelectorAll('tbody tr[data-ingredient-id]');
+  tableRows.forEach((row) => {
+    row.addEventListener('click', () => {
+      const ingredientId = row.getAttribute('data-ingredient-id');
+      if (ingredientId && select) {
+        select.value = ingredientId;
+        displayIngredient(ingredientId);
+      }
+    });
+  });
+</script>
