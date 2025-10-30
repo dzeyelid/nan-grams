@@ -88,7 +88,8 @@ def main():
     print("\nSample results:")
     for item in results[:5]:
         print(f"  - {item['food_name']}: {item['ml_per_100g']} ml")
-    print(f"  ... and {len(results) - 5} more items")
+    if len(results) > 5:
+        print(f"  ... and {len(results) - 5} more items")
 
 
 if __name__ == '__main__':
