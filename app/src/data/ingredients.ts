@@ -26,7 +26,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 'mirin',
     name: 'みりん (Mirin)',
-    gramPerTablespoon: 18,
+    gramPerTablespoon: 19,
     gramPerTeaspoon: 6,
     tags: ['liquid', 'sweetener', 'seasoning'],
   },
@@ -75,7 +75,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 'miso',
     name: '味噌 (Miso)',
-    gramPerTablespoon: 18,
+    gramPerTablespoon: 17,
     gramPerTeaspoon: 6,
     tags: ['paste', 'seasoning'],
   },
